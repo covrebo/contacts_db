@@ -40,7 +40,19 @@ class Contact:
                 return self(first_name, last_name)
             except:
                 print('Invalid input. Try again.')
-                # continue
+
+    @classmethod
+    def import_new_contact(self, first_name, last_name):
+        try:
+            first_name = first_name
+            if not first_name:
+                raise ValueError
+            last_name = last_name
+            if not last_name:
+                raise ValueError
+            return self(first_name, last_name)
+        except:
+            print('Contact missing data')
 
 
 

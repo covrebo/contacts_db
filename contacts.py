@@ -1,4 +1,5 @@
 from classes import Contact
+import csv_utils
 
 def main():
     print_header()
@@ -52,19 +53,37 @@ def print_contacts(contact_list):
         print(f'Contact {contact_num}: {contact.first_name} {contact.last_name}')
         contact_num += 1
 
+
+# method to import contacts from a csv
+def import_contacts():
+    # TODO prompt user if file is in place or if they need to download template
+    contact_import = csv_utils.init()
+    for contact in contact_import:
+        print(f'Your contacts: {contact.first_name} {contact.last_name}')
+        contact_import = Contact.import_new_contact(contact.first_name, contact.last_name)
+        contact_list.append(contact_import)
+
+
+# TODO write method to export a contacts template
+
+#TODO write a method to export contacts list
+
 def program_loop():
-    valid_inputs = ['c', 'p', 'q', 's']
+    valid_inputs = ['c', 'i', 'p', 'q', 's']
     while True:
         task = input(f'What would you like to do?\n'
                      f'\t[C]reate new contact\n'
                      f'\t[P]rint contacts\n'
                      f'\t[S]earch contacts\n'
+                     f'\t[I]mport contacts\n'
                      f'\t[Q]uit\n'
                      f'\t> ')
         try:
             if task.lower() in valid_inputs:
                 if task.lower() == 'c':
                     create_contact()
+                elif task.lower() == 'i':
+                    import_contacts()
                 elif task.lower() == 'p':
                     print_contacts(contact_list)
                 elif task.lower() == 's':
@@ -75,7 +94,7 @@ def program_loop():
             else:
                 raise ValueError
         except:
-            print('Please enter "C", "R", or "Q" to continue')
+            print('Please enter "C", "I", "P", "Q", or "S" to continue')
             continue
 
 if __name__ == '__main__':
