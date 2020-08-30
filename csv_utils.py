@@ -1,6 +1,7 @@
 import os
 import csv
 import collections
+from classes import Contact
 
 data = []
 
@@ -35,3 +36,18 @@ def parse_row(row):
     )
 
     return record
+
+def export_contacts(contacts):
+    # TODO create a versioning system for backups with users create the number os backups to save
+
+    base_folder = os.path.dirname(__file__)
+    filename = os.path.join(base_folder, 'data', 'export.csv')
+
+    with open(filename, 'w', newline='') as csvexport:
+        header = ['first_name', 'last_name']
+        writer = csv.writer(csvexport)
+
+        writer.writerow(header)
+
+        for contact in contacts:
+            writer.writerow([contact.first_name, contact.last_name])

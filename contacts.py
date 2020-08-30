@@ -57,6 +57,8 @@ def print_contacts(contact_list):
 # method to import contacts from a csv
 def import_contacts():
     # TODO prompt user if file is in place or if they need to download template
+    # TODO prompt user to choose new import or backup
+    # TODO prompt user to choose a backup version
     contact_import = csv_utils.init()
     for contact in contact_import:
         print(f'Your contacts: {contact.first_name} {contact.last_name}')
@@ -66,22 +68,23 @@ def import_contacts():
 
 # TODO write method to export a contacts template
 
-#TODO write a method to export contacts list
-
 def program_loop():
-    valid_inputs = ['c', 'i', 'p', 'q', 's']
+    valid_inputs = ['c', 'e', 'i', 'p', 'q', 's']
     while True:
         task = input(f'What would you like to do?\n'
                      f'\t[C]reate new contact\n'
                      f'\t[P]rint contacts\n'
                      f'\t[S]earch contacts\n'
                      f'\t[I]mport contacts\n'
+                     f'\t[E]xport contacts\n'
                      f'\t[Q]uit\n'
                      f'\t> ')
         try:
             if task.lower() in valid_inputs:
                 if task.lower() == 'c':
                     create_contact()
+                elif task.lower() == 'e':
+                    csv_utils.export_contacts(contact_list)
                 elif task.lower() == 'i':
                     import_contacts()
                 elif task.lower() == 'p':
@@ -89,21 +92,21 @@ def program_loop():
                 elif task.lower() == 's':
                     search_contacts(contact_list)
                 elif task.lower() == 'q':
+                    # TODO ask user if they want to save/export contacts before quitting
                     print('Good Bye')
                     break
             else:
                 raise ValueError
         except:
-            print('Please enter "C", "I", "P", "Q", or "S" to continue')
+            print('Please enter "C", "E", "I", "P", "Q", or "S" to continue')
             continue
 
 if __name__ == '__main__':
     main()
 
 # TODO Database support
-# TODO File i/o
 # TODO Tests
 # TODO Logging
 # TODO Email/share contact
 # TODO Look at pyinputplus for input validation
-# TODO more things
+# TODO create a configuration file and quickstart to setup contacts DB (like number of backup versions)
